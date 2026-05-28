@@ -1,0 +1,463 @@
+
+<!DOCTYPE html>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,500;0,700;1,300;1,700&family=Inter:wght@300;400;500&display=swap');
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+--red:#C0392B;--red-light:#FDEDEC;--red-mid:#E74C3C;
+--navy:#1B2A3B;--navy-light:#EBF0F5;
+--gold:#D4A017;--gold-light:#FDF6E3;
+--white:#FFFFFF;--off:#F8F7F4;--muted:#6B7280;--border:#E5E7EB;
+}
+body{font-family:'Inter',sans-serif;background:var(--off);color:var(--navy);overflow-x:hidden;}
+a{text-decoration:none;color:inherit;}
+
+/* NAV */
+nav{background:var(--navy);padding:0 5vw;display:flex;align-items:center;justify-content:space-between;height:64px;position:sticky;top:0;z-index:100;}
+.nav-logo{font-family:'Fraunces',serif;font-size:20px;color:var(--white);letter-spacing:-0.5px;}
+.nav-logo span{color:#E74C3C;}
+.nav-links{display:flex;gap:28px;align-items:center;}
+.nav-links a{font-size:13px;color:rgba(255,255,255,0.65);cursor:pointer;transition:color .2s;}
+.nav-links a:hover{color:var(--white);}
+.nav-cta{background:var(--red-mid);color:var(--white);font-size:12px;font-weight:500;padding:8px 18px;border-radius:6px;border:none;cursor:pointer;font-family:'Inter',sans-serif;white-space:nowrap;}
+.nav-cta:hover{background:var(--red);}
+.hamburger{display:none;flex-direction:column;gap:4px;cursor:pointer;padding:4px;}
+.hamburger span{width:22px;height:2px;background:var(--white);border-radius:2px;transition:.3s;}
+.mobile-menu{display:none;background:var(--navy);padding:20px 5vw 28px;flex-direction:column;gap:16px;}
+.mobile-menu a{font-size:15px;color:rgba(255,255,255,0.8);cursor:pointer;padding:4px 0;border-bottom:0.5px solid rgba(255,255,255,0.08);}
+.mobile-menu .nav-cta{width:100%;text-align:center;padding:12px;font-size:14px;border-radius:8px;}
+
+/* HERO */
+.hero{background:var(--navy);padding:80px 5vw 0;overflow:hidden;position:relative;}
+.hero-top{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:end;max-width:1100px;margin:0 auto;}
+.hero-tag{display:inline-flex;align-items:center;gap:6px;background:rgba(231,76,60,0.18);border:0.5px solid rgba(231,76,60,0.4);color:#F1948A;font-size:11px;font-weight:500;padding:5px 12px;border-radius:20px;letter-spacing:0.5px;margin-bottom:20px;}
+.hero h1{font-family:'Fraunces',serif;font-size:clamp(36px,5vw,62px);font-weight:700;color:var(--white);line-height:1.05;margin-bottom:18px;}
+.hero h1 em{font-style:italic;color:#E74C3C;}
+.hero-sub{font-size:16px;color:rgba(255,255,255,0.6);line-height:1.7;margin-bottom:32px;font-weight:300;max-width:420px;}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:40px;}
+.btn-primary{background:var(--red-mid);color:var(--white);font-size:14px;font-weight:500;padding:12px 24px;border-radius:8px;border:none;cursor:pointer;font-family:'Inter',sans-serif;}
+.btn-primary:hover{background:var(--red);}
+.btn-ghost{background:transparent;color:rgba(255,255,255,0.75);font-size:14px;font-weight:400;padding:12px 24px;border-radius:8px;border:1px solid rgba(255,255,255,0.2);cursor:pointer;font-family:'Inter',sans-serif;}
+.btn-ghost:hover{border-color:rgba(255,255,255,0.5);color:var(--white);}
+.hero-stats{display:flex;gap:24px;flex-wrap:wrap;}
+.hero-stat{display:flex;flex-direction:column;}
+.hero-stat strong{font-family:'Fraunces',serif;font-size:28px;font-weight:700;color:var(--white);}
+.hero-stat span{font-size:12px;color:rgba(255,255,255,0.45);}
+.hero-right{position:relative;align-self:end;}
+.hero-card{background:rgba(255,255,255,0.06);border:0.5px solid rgba(255,255,255,0.12);border-radius:12px 12px 0 0;padding:28px;max-width:340px;margin-left:auto;}
+.hero-card-label{font-size:11px;color:rgba(255,255,255,0.4);margin-bottom:16px;letter-spacing:0.5px;text-transform:uppercase;}
+.hero-card-service{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:0.5px solid rgba(255,255,255,0.08);}
+.hero-card-service:last-child{border-bottom:none;}
+.hero-card-service .dot{width:8px;height:8px;border-radius:50%;background:#E74C3C;flex-shrink:0;}
+.hero-card-service .dot.gold{background:#D4A017;}
+.hero-card-service .dot.green{background:#27AE60;}
+.hero-card-service span{font-size:14px;color:rgba(255,255,255,0.8);}
+.hero-card-service .price{margin-left:auto;font-size:13px;font-weight:500;color:var(--white);}
+.marquee-wrap{background:#E74C3C;padding:10px 0;overflow:hidden;margin-top:40px;}
+.marquee-track{display:flex;gap:0;animation:marquee 18s linear infinite;width:max-content;}
+.marquee-track span{font-size:12px;font-weight:500;color:var(--white);white-space:nowrap;padding:0 28px;letter-spacing:0.5px;}
+.marquee-track span.dot-sep::before{content:'·';margin-right:28px;opacity:0.6;}
+@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* TRUST BAR */
+.trust{background:var(--white);border-bottom:1px solid var(--border);padding:18px 5vw;display:flex;gap:32px;justify-content:center;flex-wrap:wrap;}
+.trust-item{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted);}
+.trust-item i{font-size:16px;color:var(--red-mid);}
+
+/* SECTIONS */
+.section{padding:72px 5vw;max-width:1100px;margin:0 auto;}
+.section-label{font-size:11px;font-weight:500;letter-spacing:1.5px;color:var(--red-mid);text-transform:uppercase;margin-bottom:10px;}
+.section h2{font-family:'Fraunces',serif;font-size:clamp(26px,3.5vw,40px);font-weight:700;margin-bottom:10px;line-height:1.1;}
+.section .intro{font-size:15px;color:var(--muted);max-width:480px;line-height:1.7;margin-bottom:48px;}
+
+/* SERVICES */
+.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1px;background:var(--border);border:1px solid var(--border);border-radius:12px;overflow:hidden;}
+.service-tile{background:var(--white);padding:24px;transition:background .2s;cursor:default;}
+.service-tile:hover{background:#FEF9F9;}
+.service-tile .s-icon{font-size:22px;color:var(--red-mid);margin-bottom:14px;}
+.service-tile h3{font-size:14px;font-weight:500;margin-bottom:6px;}
+.service-tile p{font-size:13px;color:var(--muted);line-height:1.55;}
+
+/* PRICING */
+.pricing-section{background:var(--navy);padding:72px 5vw;}
+.pricing-inner{max-width:1100px;margin:0 auto;}
+.pricing-inner .section-label{color:#F1948A;}
+.pricing-inner h2{color:var(--white);}
+.pricing-inner .intro{color:rgba(255,255,255,0.5);}
+.compare-bar{background:rgba(255,255,255,0.06);border:0.5px solid rgba(255,255,255,0.1);border-radius:10px;padding:16px 20px;margin-bottom:32px;display:flex;align-items:center;gap:12px;}
+.compare-bar p{font-size:13px;color:rgba(255,255,255,0.55);line-height:1.55;}
+.compare-bar i{font-size:20px;color:#F1948A;flex-shrink:0;}
+.pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;}
+.price-card{background:rgba(255,255,255,0.05);border:0.5px solid rgba(255,255,255,0.1);border-radius:12px;padding:24px;transition:border-color .2s;}
+.price-card:hover{border-color:rgba(231,76,60,0.5);}
+.price-card.featured{background:rgba(231,76,60,0.12);border:1.5px solid rgba(231,76,60,0.5);}
+.price-card .badge{display:inline-block;background:#E74C3C;color:var(--white);font-size:10px;font-weight:500;padding:3px 10px;border-radius:20px;margin-bottom:12px;letter-spacing:0.3px;}
+.price-card h3{font-size:14px;font-weight:500;color:var(--white);margin-bottom:4px;}
+.price-card .subtype{font-size:12px;color:rgba(255,255,255,0.4);margin-bottom:16px;}
+.price-card .our-price{font-family:'Fraunces',serif;font-size:32px;font-weight:700;color:var(--white);line-height:1;}
+.price-card .our-price sup{font-size:16px;font-family:'Inter',sans-serif;font-weight:400;vertical-align:super;}
+.price-card .vs{display:flex;align-items:center;gap:8px;margin-top:8px;margin-bottom:16px;}
+.price-card .vs-label{font-size:11px;color:rgba(255,255,255,0.35);}
+.price-card .vs-price{font-size:13px;color:rgba(255,255,255,0.35);text-decoration:line-through;}
+.price-card .vs-saving{font-size:11px;color:#27AE60;font-weight:500;}
+.price-divider{border:none;border-top:0.5px solid rgba(255,255,255,0.08);margin-bottom:14px;}
+.price-card ul{list-style:none;}
+.price-card ul li{font-size:12px;color:rgba(255,255,255,0.55);padding:4px 0;display:flex;align-items:center;gap:8px;}
+.price-card ul li i{font-size:14px;color:#27AE60;flex-shrink:0;}
+.price-note{margin-top:24px;font-size:12px;color:rgba(255,255,255,0.3);line-height:1.6;text-align:center;}
+
+/* HOW */
+.how-section{background:var(--off);}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:32px;margin-top:0;}
+.step{position:relative;}
+.step-num{font-family:'Fraunces',serif;font-size:52px;font-weight:700;color:var(--border);line-height:1;margin-bottom:12px;}
+.step h3{font-size:15px;font-weight:500;margin-bottom:8px;}
+.step p{font-size:13px;color:var(--muted);line-height:1.6;}
+
+/* DISCLAIMER */
+.disclaimer{background:var(--gold-light);border:1px solid #F0E5B0;border-radius:10px;padding:16px 20px;display:flex;gap:12px;margin:0 5vw 0;max-width:1060px;margin-left:auto;margin-right:auto;}
+.disclaimer i{font-size:18px;color:var(--gold);flex-shrink:0;margin-top:1px;}
+.disclaimer p{font-size:13px;color:#7D6608;line-height:1.6;}
+.disclaimer strong{color:#5D4E07;}
+
+/* BOOK */
+.book-section{background:var(--white);padding:72px 5vw;}
+.book-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1.2fr;gap:48px;align-items:start;}
+.book-left .section-label{margin-bottom:10px;}
+.book-detail{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--muted);margin-bottom:12px;}
+.book-detail i{font-size:16px;color:var(--red-mid);}
+.cal-wrap{border:1px solid var(--border);border-radius:12px;overflow:hidden;background:var(--off);}
+
+/* CONTACT */
+.contact-section{background:var(--off);padding:72px 5vw;}
+.contact-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1.3fr;gap:48px;align-items:start;}
+.contact-left .section-label{margin-bottom:10px;}
+.contact-detail{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--muted);margin-bottom:12px;}
+.contact-detail i{font-size:18px;color:var(--red-mid);}
+.form-wrap{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:28px;}
+.form-row{margin-bottom:14px;}
+.form-row label{display:block;font-size:12px;font-weight:500;color:var(--muted);margin-bottom:5px;text-transform:uppercase;letter-spacing:0.5px;}
+.form-row input,.form-row select,.form-row textarea{width:100%;font-family:'Inter',sans-serif;font-size:14px;padding:10px 14px;border:1px solid var(--border);border-radius:8px;background:var(--off);color:var(--navy);outline:none;transition:border-color .2s;}
+.form-row input:focus,.form-row select:focus,.form-row textarea:focus{border-color:var(--red-mid);}
+.form-row textarea{resize:vertical;min-height:90px;}
+.form-submit{background:var(--red-mid);color:var(--white);font-size:14px;font-family:'Inter',sans-serif;font-weight:500;padding:12px 24px;border-radius:8px;border:none;cursor:pointer;width:100%;margin-top:4px;transition:background .2s;}
+.form-submit:hover{background:var(--red);}
+.form-success{display:none;text-align:center;padding:24px 0;}
+.form-success i{font-size:36px;color:#27AE60;display:block;margin-bottom:10px;}
+.form-success p{font-size:14px;color:var(--muted);}
+
+/* FOOTER */
+footer{background:var(--navy);padding:32px 5vw;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;}
+.footer-logo{font-family:'Fraunces',serif;font-size:18px;color:var(--white);}
+.footer-logo span{color:#E74C3C;}
+footer p{font-size:12px;color:rgba(255,255,255,0.3);}
+
+/* ANIMATIONS */
+.fade-in{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+.counter-num{display:inline;}
+
+/* RESPONSIVE */
+@media(max-width:760px){
+  .nav-links,.nav-cta{display:none;}
+  .hamburger{display:flex;}
+  .hero-top{grid-template-columns:1fr;}
+  .hero-right{display:none;}
+  .book-inner,.contact-inner{grid-template-columns:1fr;}
+  .trust{gap:16px;justify-content:flex-start;}
+}
+</style>
+
+<nav>
+  <div class="nav-logo">Permit<span>&</span>Go</div>
+  <div class="nav-links">
+    <a onclick="scroll2('services')">Services</a>
+    <a onclick="scroll2('pricing')">Pricing</a>
+    <a onclick="scroll2('how')">How it works</a>
+    <a onclick="scroll2('book')">Book a call</a>
+    <a onclick="scroll2('contact')">Contact</a>
+  </div>
+  <button class="nav-cta" onclick="scroll2('book')">Free 10-min call</button>
+  <div class="hamburger" onclick="toggleMenu()" id="hbg" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+<div class="mobile-menu" id="mmenu">
+  <a onclick="scroll2('services');toggleMenu()">Services</a>
+  <a onclick="scroll2('pricing');toggleMenu()">Pricing</a>
+  <a onclick="scroll2('how');toggleMenu()">How it works</a>
+  <a onclick="scroll2('book');toggleMenu()">Book a call</a>
+  <a onclick="scroll2('contact');toggleMenu()">Contact</a>
+  <button class="nav-cta" onclick="scroll2('book');toggleMenu()">Book free 10-min call</button>
+</div>
+
+<section class="hero">
+  <div class="hero-top">
+    <div>
+      <div class="hero-tag"><i class="ti ti-map-pin" aria-hidden="true" style="font-size:12px;"></i> Serving clients across Canada</div>
+      <h1>Your permit.<br><em>Done right.</em><br>For less.</h1>
+      <p class="hero-sub">6+ years of hands-on IRCC experience — without the RCIC price tag. Study permits, work permits, extensions, spousal, and more.</p>
+      <div class="hero-btns">
+        <button class="btn-primary" onclick="scroll2('book')">Book free 10-min call</button>
+        <button class="btn-ghost" onclick="scroll2('pricing')">See pricing</button>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat"><strong><span class="counter-num" data-target="6">0</span>+</strong><span>Years experience</span></div>
+        <div class="hero-stat"><strong>50–70%</strong><span>Less than RCIC rates</span></div>
+        <div class="hero-stat"><strong>24hr</strong><span>Response time</span></div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-card">
+        <div class="hero-card-label">Our service rates</div>
+        <div class="hero-card-service"><div class="dot"></div><span>Study permit</span><span class="price">from $399</span></div>
+        <div class="hero-card-service"><div class="dot gold"></div><span>Work permit</span><span class="price">from $449</span></div>
+        <div class="hero-card-service"><div class="dot green"></div><span>Status extension</span><span class="price">from $249</span></div>
+        <div class="hero-card-service"><div class="dot"></div><span>Spousal permit</span><span class="price">from $399</span></div>
+        <div class="hero-card-service"><div class="dot gold"></div><span>Visitor visa</span><span class="price">from $299</span></div>
+        <div class="hero-card-service"><div class="dot green"></div><span>Doc review</span><span class="price">from $149</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="marquee-wrap">
+    <div class="marquee-track" id="mtrack"></div>
+  </div>
+</section>
+
+<div class="trust">
+  <div class="trust-item"><i class="ti ti-clock" aria-hidden="true"></i> 6+ years IRCC experience</div>
+  <div class="trust-item"><i class="ti ti-shield-check" aria-hidden="true"></i> Transparent, flat-rate pricing</div>
+  <div class="trust-item"><i class="ti ti-users" aria-hidden="true"></i> Families, students &amp; workers</div>
+  <div class="trust-item"><i class="ti ti-message-circle" aria-hidden="true"></i> 24-hour response</div>
+  <div class="trust-item"><i class="ti ti-device-laptop" aria-hidden="true"></i> 100% remote, all of Canada</div>
+</div>
+
+<div style="background:var(--off);padding:72px 0 0;">
+  <div class="section" id="services" style="padding-top:0;">
+    <div class="fade-in">
+      <div class="section-label">What we help with</div>
+      <h2>Our services</h2>
+      <p class="intro">We handle the applications we know inside out — so your paperwork is done right the first time, at a fraction of typical consultant fees.</p>
+    </div>
+    <div class="services-grid fade-in">
+      <div class="service-tile"><div class="s-icon"><i class="ti ti-school" aria-hidden="true"></i></div><h3>Study permits</h3><p>New applications, renewals, and condition changes for students at Canadian institutions.</p></div>
+      <div class="service-tile"><div class="s-icon"><i class="ti ti-briefcase" aria-hidden="true"></i></div><h3>Work permits</h3><p>Employer-specific and open work permits, renewals, and extensions.</p></div>
+      <div class="service-tile"><div class="s-icon"><i class="ti ti-refresh" aria-hidden="true"></i></div><h3>Status extensions</h3><p>Visitor, student, or worker status — before your current status expires.</p></div>
+      <div class="service-tile"><div class="s-icon"><i class="ti ti-heart" aria-hidden="true"></i></div><h3>Spousal &amp; family</h3><p>Open work permits for spouses and common-law partners of permit holders.</p></div>
+      <div class="service-tile"><div class="s-icon"><i class="ti ti-building" aria-hidden="true"></i></div><h3>Visitor visas</h3><p>TRV applications and super visas for parents and grandparents.</p></div>
+      <div class="service-tile"><div class="s-icon"><i class="ti ti-file-check" aria-hidden="true"></i></div><h3>Document review</h3><p>We review your application before submission — catch errors before IRCC does.</p></div>
+    </div>
+  </div>
+</div>
+
+<div class="pricing-section" id="pricing">
+  <div class="pricing-inner">
+    <div class="fade-in">
+      <div class="section-label">Transparent pricing</div>
+      <h2 style="color:var(--white);">What you'll actually pay</h2>
+      <p class="intro">No hidden fees. No hourly billing surprises. Compare our flat rates against the market.</p>
+    </div>
+    <div class="compare-bar fade-in">
+      <i class="ti ti-info-circle" aria-hidden="true"></i>
+      <p>RCIC-licensed consultants typically charge <strong style="color:rgba(255,255,255,0.75);">$1,500–$4,000</strong> for permits and <strong style="color:rgba(255,255,255,0.75);">$750–$1,200</strong> for extensions. We provide the same experienced application assistance — no legal advice, no representation — at a fraction of that cost.</p>
+    </div>
+    <div class="pricing-grid fade-in">
+      <div class="price-card">
+        <h3>Study permit</h3>
+        <div class="subtype">New application or renewal</div>
+        <div class="our-price"><sup>$</sup>399</div>
+        <div class="vs"><span class="vs-label">RCIC avg.</span><span class="vs-price">$1,500–2,500</span><span class="vs-saving">Save $1,100+</span></div>
+        <hr class="price-divider">
+        <ul>
+          <li><i class="ti ti-check" aria-hidden="true"></i> Document checklist &amp; review</li>
+          <li><i class="ti ti-check" aria-hidden="true"></i> Form prep &amp; quality check</li>
+          <li><i class="ti ti-check" aria-hidden="true"></i> Cover letter assistance</li>
+          <li><i class="ti ti-check" aria-hidden="true"></i> Submission guidance</li>
+        </ul>
+      </div>
+      <div class="price-card featured">
+        <div class="badge">Most requested</div>
+        <h3>Work permit</h3>
+        <div class="subtype">Employer-specific or open</div>
+        <div class="our-price"><sup>$</sup>449</div>
+        <div class="vs"><span class="vs-label">RCIC avg.</span><span class="vs-price">$1,800–3,000</span><span class="vs-saving">Save $1,350+</span></div>
+        <hr class="price-divider">
+        <ul>
+          <li><i class="ti ti-check" aria-hidden="true"></i> Eligibility assessment</li>
+          <li><i class="ti ti-check" aria-hidden="true"></i> Document checklist &amp; review</li>
+          <li><i class="ti ti-check" aria-hidden="true"></i> Form prep &amp; quality check</li>
+          <li><i class="ti ti-check" aria-hidden="true"></i> Submission guidance</li>
+        </ul>
+      </div>
+      <div class="price-card">
+        <h3>Status extension</h3>
+        <div class="subtype">Visitor, student, or worker</div>
+        <div class="our-price"><sup>$</sup>249</div>
+        <div class="vs"><span class="vs-label">RCIC avg.</span><span class="vs-price">$750–1,200</span><span class="vs-saving">Save $500+</span></div>
+        <hr class="price-divider">
+        <ul>
+          <li><i class="ti ti-check" aria-hidden="true"></i> Timeline review</li>
+          <li><i class="ti ti-check" aria-hidden="true"></i> Document checklist</li>
+          <li><i class="ti ti-check" aria-hidden="true"></i> Form prep &amp; review</li>
+          <li><i class="ti ti-check" aria-hidden="true"></i> Submission guidance</li>
+        </ul>
+      </div>
+      <div class="price-card">
+        <h3>Spousal permit</h3>
+        <div class="subtype">Open work permit (spouse/partner)</div>
+        <div class="our-price"><sup>$</sup>399</div>
+        <div class="vs"><span class="vs-label">RCIC avg.</span><span class="vs-price">$1,200–2,000</span><span class="vs-saving">Save $800+</span></div>
+        <hr class="price-divider">
+        <ul>
+          <li><i class="ti ti-check" aria-hidden="true"></i> Relationship doc guidance</li>
+          <li><i class="ti ti-check" aria-hidden="true"></i> Form prep &amp; quality check</li>
+          <li><i class="ti ti-check" aria-hidden="true"></i> Cover letter assistance</li>
+          <li><i class="ti ti-check" aria-hidden="true"></i> Submission guidance</li>
+        </ul>
+      </div>
+      <div class="price-card">
+        <h3>Visitor visa</h3>
+        <div class="subtype">TRV or super visa</div>
+        <div class="our-price"><sup>$</sup>299</div>
+        <div class="vs"><span class="vs-label">RCIC avg.</span><span class="vs-price">$800–1,500</span><span class="vs-saving">Save $500+</span></div>
+        <hr class="price-divider">
+        <ul>
+          <li><i class="ti ti-check" aria-hidden="true"></i> Document checklist</li>
+          <li><i class="ti ti-check" aria-hidden="true"></i> Form prep &amp; quality check</li>
+          <li><i class="ti ti-check" aria-hidden="true"></i> Financial doc guidance</li>
+          <li><i class="ti ti-check" aria-hidden="true"></i> Submission guidance</li>
+        </ul>
+      </div>
+      <div class="price-card">
+        <h3>Document review</h3>
+        <div class="subtype">Application audit only</div>
+        <div class="our-price"><sup>$</sup>149</div>
+        <div class="vs"><span class="vs-label">RCIC avg.</span><span class="vs-price">$300–800</span><span class="vs-saving">Save $150+</span></div>
+        <hr class="price-divider">
+        <ul>
+          <li><i class="ti ti-check" aria-hidden="true"></i> Full application review</li>
+          <li><i class="ti ti-check" aria-hidden="true"></i> Error &amp; gap report</li>
+          <li><i class="ti ti-check" aria-hidden="true"></i> Written recommendations</li>
+          <li><i class="ti ti-check" aria-hidden="true"></i> 48-hour turnaround</li>
+        </ul>
+      </div>
+    </div>
+    <p class="price-note fade-in">All fees are in CAD and exclude government IRCC application fees. Complex cases may be quoted separately. Govt fees are paid directly to IRCC by you.</p>
+  </div>
+</div>
+
+<div style="padding:48px 0 0;background:var(--off);" class="fade-in">
+  <div class="disclaimer" style="margin-bottom:0;">
+    <i class="ti ti-info-circle" aria-hidden="true"></i>
+    <p><strong>A note on what we do:</strong> Permit &amp; Go provides experienced application assistance — document preparation, form guidance, and submission support. We are not a Regulated Canadian Immigration Consultant (RCIC) and do not provide legal advice or regulated representation. For appeals, refusals, inadmissibility, or complex cases, we'll be upfront and refer you to the right regulated professional.</p>
+  </div>
+</div>
+
+<div style="background:var(--off);padding:72px 0;" id="how">
+  <div class="section how-section" style="padding-top:0;padding-bottom:0;">
+    <div class="fade-in">
+      <div class="section-label">The process</div>
+      <h2>Three steps, no stress</h2>
+      <p class="intro">From first question to submitted application — simple and transparent the whole way through.</p>
+    </div>
+    <div class="steps fade-in">
+      <div class="step"><div class="step-num">01</div><h3>Book your free call</h3><p>10 minutes to tell us about your situation. We'll tell you honestly if we can help and what it'll cost — no obligation.</p></div>
+      <div class="step"><div class="step-num">02</div><h3>We prepare your file</h3><p>You send us your documents. We review everything carefully, prepare your forms, and flag anything that needs attention before submission.</p></div>
+      <div class="step"><div class="step-num">03</div><h3>Submit &amp; follow up</h3><p>We walk you through final submission. You get clear instructions and we stay available for questions after it goes in.</p></div>
+    </div>
+  </div>
+</div>
+
+<div class="book-section" id="book">
+  <div class="book-inner">
+    <div>
+      <div class="section-label">Book a call</div>
+      <h2 style="font-family:'Fraunces',serif;font-size:clamp(24px,3vw,36px);font-weight:700;margin-bottom:12px;">Free 10-minute consultation</h2>
+      <p style="font-size:15px;color:var(--muted);line-height:1.7;margin-bottom:28px;font-weight:300;">Not sure if we can help? Book a quick call and get an honest answer — no pressure, no pitch.</p>
+      <div class="book-detail"><i class="ti ti-clock" aria-hidden="true"></i> 10 minutes, completely free</div>
+      <div class="book-detail"><i class="ti ti-video" aria-hidden="true"></i> Phone or video, your choice</div>
+      <div class="book-detail"><i class="ti ti-calendar" aria-hidden="true"></i> Weekends &amp; evenings available</div>
+      <div class="book-detail"><i class="ti ti-mail" aria-hidden="true"></i> permitandgo@gmail.com</div>
+    </div>
+    <div class="cal-wrap fade-in">
+      <iframe src="https://calendly.com/permitandgo/30min" width="100%" height="520" frameborder="0" style="display:block;"></iframe>
+    </div>
+  </div>
+</div>
+
+<div class="contact-section" id="contact">
+  <div class="contact-inner">
+    <div>
+      <div class="section-label">Get in touch</div>
+      <h2 style="font-family:'Fraunces',serif;font-size:clamp(24px,3vw,36px);font-weight:700;margin-bottom:12px;">Have a question first?</h2>
+      <p style="font-size:15px;color:var(--muted);line-height:1.7;margin-bottom:28px;font-weight:300;">Drop us a message and we'll get back to you within 24 hours.</p>
+      <div class="contact-detail"><i class="ti ti-mail" aria-hidden="true"></i> permitandgo@gmail.com</div>
+      <div class="contact-detail"><i class="ti ti-clock" aria-hidden="true"></i> Replies within 24 hours</div>
+      <div class="contact-detail"><i class="ti ti-map-pin" aria-hidden="true"></i> Serving all of Canada, remotely</div>
+    </div>
+    <div class="form-wrap fade-in">
+      <div id="form-fields">
+        <div class="form-row"><label>Your name</label><input type="text" id="f-name" placeholder="Jane Smith"></div>
+        <div class="form-row"><label>Email</label><input type="email" id="f-email" placeholder="you@email.com"></div>
+        <div class="form-row"><label>Service needed</label>
+          <select id="f-service">
+            <option value="">Select...</option>
+            <option>Study permit</option><option>Work permit</option><option>Status extension</option>
+            <option>Spousal / family permit</option><option>Visitor visa</option><option>Document review</option><option>Not sure yet</option>
+          </select>
+        </div>
+        <div class="form-row"><label>Tell us more</label><textarea id="f-msg" placeholder="Briefly describe your situation..."></textarea></div>
+        <button class="form-submit" onclick="submitForm()">Send message</button>
+      </div>
+      <div class="form-success" id="form-success">
+        <i class="ti ti-circle-check" aria-hidden="true"></i>
+        <p style="font-size:15px;font-weight:500;color:var(--navy);margin-bottom:6px;">Message sent!</p>
+        <p>We'll reply to your email within 24 hours.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-logo">Permit<span>&</span>Go</div>
+  <p>Application assistance only — not a regulated immigration consultant (RCIC).</p>
+  <p>permitandgo@gmail.com · Canada-wide</p>
+</footer>
+
+<script>
+function scroll2(id){const el=document.getElementById(id);if(el)el.scrollIntoView({behavior:'smooth'});}
+
+function toggleMenu(){
+  const m=document.getElementById('mmenu');
+  const open=m.style.display==='flex';
+  m.style.display=open?'none':'flex';
+}
+
+const msgs=['Study Permits','Work Permits','Status Extensions','Spousal Permits','Visitor Visas','Document Review','Flat-Rate Pricing','No Hidden Fees','6+ Years Experience','Weekend Appointments','All of Canada'];
+const track=document.getElementById('mtrack');
+const doubled=[...msgs,...msgs];
+track.innerHTML=doubled.map((m,i)=>`<span${i>0?' class="dot-sep"':''}>${m}</span>`).join('');
+
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:0.15});
+document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+
+document.querySelectorAll('.counter-num').forEach(el=>{
+  const target=parseInt(el.dataset.target);
+  let cur=0;
+  const step=()=>{if(cur<target){cur++;el.textContent=cur;setTimeout(step,120);}};
+  setTimeout(step,600);
+});
+
+function submitForm(){
+  const n=document.getElementById('f-name').value.trim();
+  const e=document.getElementById('f-email').value.trim();
+  const s=document.getElementById('f-service').value;
+  const m=document.getElementById('f-msg').value.trim();
+  if(!n||!e||!s||!m){alert('Please fill in all fields.');return;}
+  const sub=encodeURIComponent('Inquiry: '+s+' — Permit&Go');
+  const bod=encodeURIComponent('Name: '+n+'\nEmail: '+e+'\nService: '+s+'\n\nMessage:\n'+m);
+  window.open('mailto:permitandgo@gmail.com?subject='+sub+'&body='+bod);
+  document.getElementById('form-fields').style.display='none';
+  document.getElementById('form-success').style.display='block';
+}
+</script>
